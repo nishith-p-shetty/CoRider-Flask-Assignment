@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ./app
+    container_name: flask_app
+    command: python -u app.py
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./app:/app
+    links:
+      - db
+    environment:
+      MONGODB_DATABASE: user_resource
+      MONGODB_USERNAME: db_admin
+      MONGODB_PASSWORD: Password
+      MONGODB_HOSTNAME: mongo_db
+      MONGODB_PORT: 27017
+      APP_PORT: 8123
+      APP_DEBUG: "True"
+  db:
+    image: mongo:latest
+    hostname: mongo_db
+    container_name: mongo_db
+    environment:
+      - MONGO_INITDB_DATABASE=user_resource
+      - MONGO_INITDB_ROOT_USERNAME=db_admin
+      - MONGO_INITDB_ROOT_PASSWORD=Password
+    volumes:
+      - ./mongo_db/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    ports:
+      - 27017:27017
