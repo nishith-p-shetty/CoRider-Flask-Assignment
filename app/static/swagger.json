@@ -4,34 +4,62 @@
         "title": "Flask User Resource App",
         "version": "1.0.0"
     },
+    "tags": [
+        {
+            "name": "Server Status",
+            "description": "Get Server Status."
+        },
+        {
+            "name": "User Resource",
+            "description": "Operations about user."
+        }
+    ],
     "paths": {
         "/ping": {
             "get": {
-                "description": "Returns message showing app is up",
+                "tags": [
+                    "Server Status"
+                ],
+                "summary": "Returns message showing app is up.",
+                "description": "Returns message showing app is up.",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
                     }
                 }
             }
         },
         "/users": {
             "get": {
+                "tags": [
+                    "User Resource"
+                ],
                 "description": "Returns a list of all users.",
+                "summary": "Returns a list of all users.",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/users_list"
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "User Resource"
+                ],
                 "description": "Creates a new user with the specified data.",
+                "summary": "Creates a new user with the specified data.",
                 "produces": [
                     "application/json"
                 ],
@@ -48,14 +76,21 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
                     }
                 }
             }
         },
         "/users/{id}": {
             "get": {
+                "tags": [
+                    "User Resource"
+                ],
                 "description": "Returns the user with the specified ID.",
+                "summary": "Returns the user with the specified ID.",
                 "produces": [
                     "application/json"
                 ],
@@ -72,12 +107,19 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/user_data"
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "User Resource"
+                ],
                 "description": "Re Updates the user with the specified ID with the new data.",
+                "summary": "Re Updates the user with the specified ID with the new data.",
                 "produces": [
                     "application/json"
                 ],
@@ -103,12 +145,19 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "User Resource"
+                ],
                 "description": "Updates the user with the specified ID with the new data.",
+                "summary": "Updates the user with the specified ID with the new data.",
                 "produces": [
                     "application/json"
                 ],
@@ -125,13 +174,25 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
                     }
                 }
             }
         }
     },
     "definitions": {
+        "status": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
         "id": {
             "type": "integer",
             "properties": {
@@ -161,6 +222,33 @@
                 "password": {
                     "type": "string",
                     "example": "password123"
+                }
+            }
+        },
+        "users_list": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "type": "collection",
+                    "example": [{
+                        "id": {
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 123
+                        },
+                        "name": {
+                            "type": "string",
+                            "example": "John"
+                        },
+                        "email": {
+                            "type": "string",
+                            "example": "john@email.com"
+                        },
+                        "password": {
+                            "type": "string",
+                            "example": "password123"
+                        }
+                    }]
                 }
             }
         },
