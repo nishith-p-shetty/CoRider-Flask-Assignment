@@ -11,7 +11,7 @@
         },
         {
             "name": "User Resource",
-            "description": "Operations about user."
+            "description": "Operations about users."
         }
     ],
     "paths": {
@@ -20,8 +20,8 @@
                 "tags": [
                     "Server Status"
                 ],
-                "summary": "Returns message showing app is up.",
-                "description": "Returns message showing app is up.",
+                "summary": "Check if the server is up.",
+                "description": "Returns a message indicating that the application is running.",
                 "produces": [
                     "application/json"
                 ],
@@ -29,7 +29,7 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/status"
+                            "$ref": "#/definitions/Status"
                         }
                     }
                 }
@@ -40,8 +40,8 @@
                 "tags": [
                     "User Resource"
                 ],
+                "summary": "Get all users.",
                 "description": "Returns a list of all users.",
-                "summary": "Returns a list of all users.",
                 "produces": [
                     "application/json"
                 ],
@@ -49,7 +49,7 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/users_list"
+                            "$ref": "#/definitions/UsersList"
                         }
                     }
                 }
@@ -58,27 +58,27 @@
                 "tags": [
                     "User Resource"
                 ],
+                "summary": "Create a new user.",
                 "description": "Creates a new user with the specified data.",
-                "summary": "Creates a new user with the specified data.",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "User Data",
+                        "name": "user",
                         "in": "body",
                         "description": "Details of the new user.",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user_data"
+                            "$ref": "#/definitions/UserData"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Successful operation",
+                    "201": {
+                        "description": "User created successfully",
                         "schema": {
-                            "$ref": "#/definitions/status"
+                            "$ref": "#/definitions/Status"
                         }
                     }
                 }
@@ -89,8 +89,8 @@
                 "tags": [
                     "User Resource"
                 ],
+                "summary": "Get a user by ID.",
                 "description": "Returns the user with the specified ID.",
-                "summary": "Returns the user with the specified ID.",
                 "produces": [
                     "application/json"
                 ],
@@ -98,18 +98,24 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID of the required user.",
+                        "description": "ID of the user to retrieve.",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/id"
-                        }
+                        "type": "string",
+                        "format": "objectId",
+                        "example": "64a5ea31b36dcd4d09e787e3"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/user_data"
+                            "$ref": "#/definitions/UserData"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
                         }
                     }
                 }
@@ -118,8 +124,8 @@
                 "tags": [
                     "User Resource"
                 ],
-                "description": "Re Updates the user with the specified ID with the new data.",
-                "summary": "Re Updates the user with the specified ID with the new data.",
+                "summary": "Update a user by ID.",
+                "description": "Updates the user with the specified ID.",
                 "produces": [
                     "application/json"
                 ],
@@ -127,11 +133,11 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID of the required user.",
+                        "description": "ID of the user to update.",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/id"
-                        }
+                        "type": "string",
+                        "format": "objectId",
+                        "example": "64a5ea31b36dcd4d09e787e3"
                     },
                     {
                         "name": "user_data_update",
@@ -139,15 +145,21 @@
                         "description": "Updated details of the user.",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user_data"
+                            "$ref": "#/definitions/UserData"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "User updated successfully",
                         "schema": {
-                            "$ref": "#/definitions/status"
+                            "$ref": "#/definitions/Status"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
                         }
                     }
                 }
@@ -156,8 +168,8 @@
                 "tags": [
                     "User Resource"
                 ],
-                "description": "Updates the user with the specified ID with the new data.",
-                "summary": "Updates the user with the specified ID with the new data.",
+                "summary": "Delete a user by ID.",
+                "description": "Deletes the user with the specified ID.",
                 "produces": [
                     "application/json"
                 ],
@@ -165,18 +177,24 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID of the required user.",
+                        "description": "ID of the user to delete.",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/id"
-                        }
+                        "type": "string",
+                        "format": "objectId",
+                        "example": "64a5ea31b36dcd4d09e787e3"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "User deleted successfully",
                         "schema": {
-                            "$ref": "#/definitions/status"
+                            "$ref": "#/definitions/Status"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
                         }
                     }
                 }
@@ -184,7 +202,7 @@
         }
     },
     "definitions": {
-        "status": {
+        "Status": {
             "type": "object",
             "properties": {
                 "status": {
@@ -193,31 +211,21 @@
                 }
             }
         },
-        "id": {
-            "type": "integer",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 123
-                }
-            }
-        },
-        "user_data": {
+        "UserData": {
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 123
+                    "type": "string",
+                    "format": "objectId",
+                    "example": "64a5ea31b36dcd4d09e787e3"
                 },
                 "name": {
                     "type": "string",
-                    "example": "John"
+                    "example": "John Doe"
                 },
                 "email": {
                     "type": "string",
-                    "example": "john@email.com"
+                    "example": "john.doe@example.com"
                 },
                 "password": {
                     "type": "string",
@@ -225,31 +233,10 @@
                 }
             }
         },
-        "users_list": {
-            "type": "object",
-            "properties": {
-                "users": {
-                    "type": "collection",
-                    "example": [{
-                        "id": {
-                            "type": "integer",
-                            "format": "int32",
-                            "example": 123
-                        },
-                        "name": {
-                            "type": "string",
-                            "example": "John"
-                        },
-                        "email": {
-                            "type": "string",
-                            "example": "john@email.com"
-                        },
-                        "password": {
-                            "type": "string",
-                            "example": "password123"
-                        }
-                    }]
-                }
+        "UsersList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/UserData"
             }
         }
     }
