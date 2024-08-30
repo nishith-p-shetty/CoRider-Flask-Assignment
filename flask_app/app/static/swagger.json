@@ -15,7 +15,7 @@
         }
     ],
     "paths": {
-        "/ping": {
+        "/users/ping": {
             "get": {
                 "tags": [
                     "Server Status"
@@ -139,7 +139,7 @@
                         "description": "Updated details of the user.",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user_data_update"
+                            "$ref": "#/definitions/user_data"
                         }
                     }
                 ],
@@ -249,23 +249,6 @@
                             "example": "password123"
                         }
                     }]
-                }
-            }
-        },
-        "user_data_update": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "John"
-                },
-                "email": {
-                    "type": "string",
-                    "example": "john@email.com"
-                },
-                "password": {
-                    "type": "string",
-                    "example": "password123"
                 }
             }
         }
