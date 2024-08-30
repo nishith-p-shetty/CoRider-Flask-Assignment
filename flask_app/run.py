@@ -1,3 +1,13 @@
+from app import create_app
+import os
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=int(os.environ.get("APP_PORT", 8123)), debug=os.environ.get("APP_DEBUG", True))
+
+
+# OLD BASIC CODE
 # import os
 # from flask import Flask, jsonify, request
 # from pymongo import MongoClient
@@ -62,13 +72,3 @@
 #     DEBUG_VAR = os.environ.get("APP_DEBUG", True)
 #     PORT_VAR = os.environ.get("APP_PORT", 8123)
 #     app.run(host="0.0.0.0", port=PORT_VAR, debug=DEBUG_VAR)
-
-
-
-from app import create_app
-import os
-
-app = create_app()
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("APP_PORT", 8123)), debug=os.environ.get("APP_DEBUG", True))

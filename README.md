@@ -10,6 +10,23 @@ A VISUAL UI AVILABLE AT [/apidoc/](http://localhost:8123/apidoc/)
 
 Note: password is not encrypted, and is kept in plain text
 
+Directory Structure 
+```
+├── README.md
+├── docker-compose.yml
+├── flask_app
+│   ├── Dockerfile
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── models.py
+│   │   ├── routes.py
+│   │   └── static
+│   │       └── swagger.json
+│   ├── requirements.txt
+│   └── run.py
+├── mongo_db
+```
 
 ## API Reference
 
